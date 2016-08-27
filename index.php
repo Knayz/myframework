@@ -14,7 +14,7 @@ ini_set("erro_reporting", -1);
 
 
 if(!class_exists('Core')){
-    require_once 'core/core.php';
+    require_once 'core/Core.php';
 }
 
 $Core = new Core();

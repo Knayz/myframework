@@ -6,22 +6,11 @@
  * Time: 15:15
  */
 
-class Controllers_Test{
-    /**
-     * @var Core core
-     */
-    public $core;
+if (!class_exists('Controller')) {
+    require_once dirname(dirname(__FILE__)) . '/Controller.php';
+}
 
-    /**
-     * Конструктор, требует передачи Core
-     *
-     * @param Core $core
-     */
-
-    public function __construct(Core $core)
-    {
-        $this->core = $core;
-    }
+class Controllers_Test extends Controller{
 
     /**
      * Основной рабочий метод

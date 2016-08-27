@@ -5,23 +5,11 @@
  * Date: 26.08.16
  * Time: 15:12
  */
+if (!class_exists('Controller')) {
+    require_once dirname(dirname(__FILE__)) . '/Controller.php';
+}
 
-class Controllers_Home{
-    /**
-     * @var Core core
-     */
-    public $core;
-
-    /**
-     * Конструктор, требует передачи Core
-     *
-     * @param Core $core
-     */
-
-    public function __construct(Core $core)
-    {
-        $this->core = $core;
-    }
+class Controllers_Home extends  Controller{
 
     /**
      * Основной рабочий метод
@@ -32,6 +20,14 @@ class Controllers_Home{
     public function run()
     {
         return "Мы выводим страницу <b>Home</b>";
+    }
+
+    public function initialize(array $params = array())
+    {
+        if(!empty($_REQUEST['q'])){
+            $this->redirect('/');
+        }
+        return true;
     }
 
 }

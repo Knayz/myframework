@@ -19,7 +19,13 @@ class Controllers_Home extends  Controller{
 
     public function run()
     {
-        return "Мы выводим страницу <b>Home</b>";
+        //Метод getFenom() может вернуть false или объект
+        //Так что нужно проверять, что именно приходит
+        return $this->template('home', array(
+            'pagetitle' => 'Тестовый сайт',
+            'longtitle' => 'Третий курс обучения',
+            'content' => 'Текст главной страницы курса обучения на bezumkin.ru'
+        ), $this);
     }
 
     public function initialize(array $params = array())

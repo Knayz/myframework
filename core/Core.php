@@ -24,7 +24,8 @@ class Core{
                 'templatesPath' => __DIR__ . '/Templates/',
                 'cachePath' => __DIR__ . '/Cache/',
                 'fenomOptions' => array(
-                    'auto_load' => true
+                    'auto_load' => true,
+                    'force_verify' => true,
                 )
             ), $config
         );

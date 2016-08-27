@@ -5,6 +5,10 @@
  * Date: 26.08.16
  * Time: 14:36
  */
+namespace Brevis;
+
+use \Fenom as Fenom;
+use \Exception as Exception;
 
 class Core{
     public $config = array();
@@ -20,7 +24,6 @@ class Core{
     {
         $this->config = array_merge(
             array(
-                'controllersPath' => __DIR__ . '/Controllers/',
                 'templatesPath' => __DIR__ . '/Templates/',
                 'cachePath' => __DIR__ . '/Cache/',
                 'fenomOptions' => array(
@@ -29,33 +32,25 @@ class Core{
                 )
             ), $config
         );
+
     }
 
     public function handleRequest($uri)
     {
         //Если запрос не пуст - проверяем, есть ли он в массиве наших страниц
         $request = explode('/', $uri);
+
         //Имена контроллера с большой буквы
-        $name = ucfirst(array_shift($request));
-        //Полный путь до запрошенного контроллера
-        $file = $this->config['controllersPath'] . $name . '.php';
+        $className = '\Brevis\Controllers\\' . ucfirst(array_shift($request));
+
         // Если нужного контроллера нет, то используем контроллер Home
-        if(!file_exists($file)){
-            $file = $this->config['controllersPath'] . 'Home.php';
-            // Определяем имя класса, согласно принятым у нас правилам
-            $class = 'Controllers_Home';
+        if(!class_exists($className)){
+            $controller = new Controller\Home($this);
         }
         else{
-            $class = 'Controllers_' . $name;
+            $controller = new $className($this);
         }
 
-        // Если контроллер еще не был загружен - загружаем его
-        if(!class_exists($class))
-            require_once $file;
-
-        // И запускаем
-        /** @var Controllers_Home|Controllers_Test $controller */
-        $controller = new $class($this);
         $initialized = $controller->initialize($request);
         if($initialized === true){
             $response = $controller->run();
@@ -76,12 +71,7 @@ class Core{
             //Пробуем загрузить шаблонизатор
             //Все выброшенные исклы внутри этого блока будут пойманы в следующем
             try{
-                //Подключаем класс загрузки
-                if(!class_exists('Fenom')){
-                    require 'Fenom.php';
-                    //Регистрируем остальные классы его методом
-                    Fenom::registerAutoload();
-                }
+
                 //Проверяем и создаем директорию для кэширования скомпилированных шаблонов
                 if(!file_exists($this->config['cachePath'])){
                     mkdir($this->config['cachePath']);

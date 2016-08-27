@@ -9,15 +9,9 @@
 ini_set("display_errors", 1);
 ini_set("erro_reporting", -1);
 
-//var_dump($_REQUEST);
+require_once __DIR__ . '/vendor/autoload.php';
 
-
-
-if(!class_exists('Core')){
-    require_once 'core/Core.php';
-}
-
-$Core = new Core();
+$Core = new \Brevis\Core();
 
 $req = !empty($_REQUEST['q'])
         ? trim($_REQUEST['q'])

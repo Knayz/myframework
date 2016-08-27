@@ -5,6 +5,10 @@
  * Date: 26.08.16
  * Time: 15:43
  */
+namespace Brevis;
+
+use \Fenom as Fenom;
+use \Exception as Exception;
 
 class Controller{
 

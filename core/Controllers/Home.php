@@ -5,11 +5,12 @@
  * Date: 26.08.16
  * Time: 15:12
  */
-if (!class_exists('Controller')) {
-    require_once dirname(dirname(__FILE__)) . '/Controller.php';
-}
+namespace Brevis\Controller;
 
-class Controllers_Home extends  Controller{
+use Brevis\Controller as Controller;
+
+
+class Home extends  Controller{
 
     /**
      * Основной рабочий метод

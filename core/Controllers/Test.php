@@ -5,7 +5,7 @@
  * Date: 26.08.16
  * Time: 15:15
  */
-namespace Brevis\Controller;
+namespace Brevis\Controllers;
 
 use Brevis\Controller as Controller;
 
